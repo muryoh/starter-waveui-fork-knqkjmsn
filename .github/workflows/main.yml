@@ -5,8 +5,12 @@ jobs:
     runs-on: ubuntu-latest
     name: A job to release a DS with DSD
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Extract version
         run: echo "PROJECT_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
+
       - name: DSD release step
         uses: divriots/action-dsd-release@0.0.2
         with:
