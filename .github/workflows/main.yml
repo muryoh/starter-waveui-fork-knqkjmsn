@@ -1,0 +1,18 @@
+on: [push]
+
+jobs:
+  dsd_release_job:
+    runs-on: ubuntu-latest
+    name: A job to release a DS with DSD
+    steps:
+      - name: Extract version
+        run: echo "PROJECT_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
+      - name: DSD release step
+        uses: divriots/action-dsd-release@0.0.2
+        with:
+          api-token: ${{ secrets.DSD_API_TOKEN }}
+          component-id: WAMwqw3dApte27X2AOXX
+          version: ${{ env.PROJECT_VERSION }}
+        env:
+          # targeting with server for now
+          HOST: "http://77.140.181.34:8723"
